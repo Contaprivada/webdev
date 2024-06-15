@@ -113,7 +113,6 @@
         // Função para carregar dinamicamente os dados das salas
         function loadDashboardData() {
             const selectSala = document.getElementById('selectSala');
-            // Exemplo de opções de salas (pode ser ajustado conforme suas salas)
             const salas = ['Sala 01', 'Sala 02', 'Sala 03', 'Sala 04', 'Sala 05', 'Sala 06', 'Sala 07'];
 
             salas.forEach(sala => {
@@ -137,14 +136,25 @@
             const selectAtributo = document.getElementById('selectAtributo').value;
             const newValue = prompt(`Digite o novo valor para ${selectAtributo} da ${selectSala}`);
 
-            // Armazenar temporariamente os dados da sala no localStorage
-            localStorage.setItem('salaData', JSON.stringify({
-                name: selectSala,
-                [selectAtributo]: newValue
-            }));
+            if (newValue) {
+                let salasData = JSON.parse(localStorage.getItem('salasData')) || [];
 
-            // Redirecionar de volta para index.html
-            window.location.href = 'index.html';
+                // Verificar se a sala já está no localStorage
+                let salaExistente = salasData.find(sala => sala.name === selectSala);
+                if (salaExistente) {
+                    salaExistente[selectAtributo] = newValue;
+                } else {
+                    let novaSala = { name: selectSala };
+                    novaSala[selectAtributo] = newValue;
+                    salasData.push(novaSala);
+                }
+
+                // Armazenar os dados atualizados no localStorage
+                localStorage.setItem('salasData', JSON.stringify(salasData));
+
+                // Redirecionar de volta para index.html
+                window.location.href = 'index.html';
+            }
         });
     </script>
 </body>
