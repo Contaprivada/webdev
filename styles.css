@@ -1,0 +1,82 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0; /* Cor de fundo para visualização */
+}
+
+.table-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1000px;
+    background-color: #fff; /* Fundo branco para a tabela */
+    overflow-x: auto; /* Adiciona scroll horizontal caso necessário */
+    margin-bottom: 20px;
+    text-align: center; /* Centraliza o conteúdo dentro do .table-container */
+}
+
+.rules-button {
+    background-color: #007bff; /* Cor azul para o botão */
+    color: #fff;
+    border: none;
+    padding: 12px 20px; /* Ajuste o padding conforme necessário */
+    border-radius: 25px; /* Ajuste o border-radius conforme desejado */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; /* Espaçamento acima do botão */
+}
+
+.rules-button:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"] {
+    width: calc(100% - 30px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+th {
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+tr.classificacao {
+    background-color: #e0f7fa;
+}
+
+tr.rebaixamento {
+    background-color: #ffebee;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tfoot {
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: center;
+    font-style: italic;
+}

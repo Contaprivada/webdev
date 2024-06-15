@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Escolar - Série C</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="table-container">
+        <h1>Tabela Escolar - Série C</h1>
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Pesquisar por salas..." title="Digite um nome de sala">
+        <table id="schoolTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Posição <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(1)">Sala <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(2)">Pontos <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(3)">Número de Alunos <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(4)">Média de Nota <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable(5)">Presença (%) <i class="fas fa-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="classificacao">
+                    <td>1</td>
+                    <td>Sala 01</td>
+                    <td>21</td>
+                    <td>30</td>
+                    <td>8.5</td>
+                    <td>95%</td>
+                </tr>
+                <tr class="classificacao">
+                    <td>2</td>
+                    <td>Sala 02</td>
+                    <td>18</td>
+                    <td>28</td>
+                    <td>8.3</td>
+                    <td>93%</td>
+                </tr>
+                <tr class="classificacao">
+                    <td>3</td>
+                    <td>Sala 03</td>
+                    <td>17</td>
+                    <td>32</td>
+                    <td>8.1</td>
+                    <td>92%</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Sala 04</td>
+                    <td>15</td>
+                    <td>29</td>
+                    <td>7.9</td>
+                    <td>90%</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Sala 05</td>
+                    <td>13</td>
+                    <td>31</td>
+                    <td>7.8</td>
+                    <td>88%</td>
+                </tr>
+                <tr class="rebaixamento">
+                    <td>6</td>
+                    <td>Sala 06</td>
+                    <td>10</td>
+                    <td>27</td>
+                    <td>7.5</td>
+                    <td>85%</td>
+                </tr>
+                <tr class="rebaixamento">
+                    <td>7</td>
+                    <td>Sala 07</td>
+                    <td>8</td>
+                    <td>26</td>
+                    <td>7.2</td>
+                    <td>80%</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">Atenção: qualquer erro ou bug fale com a direção da escola.</td>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="regras.html" class="rules-link">Regras da Tabela Escolar</a>
+    </div>
+    <script src="scripts.js"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const salaData = JSON.parse(localStorage.getItem('salaData'));
+
+            if (salaData) {
+                const tabela = document.getElementById('schoolTable').getElementsByTagName('tbody')[0];
+
+                // Encontrar a linha correspondente à sala
+                const trs = tabela.getElementsByTagName('tr');
+                for (let i = 0; i < trs.length; i++) {
+                    const td = trs[i].getElementsByTagName('td')[1];
+                    if (td.textContent === salaData.name) {
+                        // Atualizar os dados modificados
+                        if (salaData.points !== undefined) {
+                            trs[i].getElementsByTagName('td')[2].textContent = salaData.points;
+                        }
+                        if (salaData.students !== undefined) {
+                            trs[i].getElementsByTagName('td')[3].textContent = salaData.students;
+                        }
+                        if (salaData.averageGrade !== undefined) {
+                            trs[i].getElementsByTagName('td')[4].textContent = salaData.averageGrade;
+                        }
+                        if (salaData.attendance !== undefined) {
+                            trs[i].getElementsByTagName('td')[5].textContent = salaData.attendance;
+                        }
+                        break;
+                    }
+                }
+
+                // Limpar o localStorage após a atualização
+                localStorage.removeItem('salaData');
+            }
+        });
+    </script>
+</body>
+</html>

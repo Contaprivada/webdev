@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tabela Escolar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-container h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        select, button {
+            font-size: 16px;
+            padding: 8px;
+            margin-bottom: 16px;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Dashboard - Tabela Escolar</h1>
+        <form id="updateForm">
+            <label for="selectSala">Escolha a Sala:</label>
+            <select id="selectSala" name="selectSala">
+                <!-- Options preenchidos dinamicamente com JavaScript -->
+            </select>
+            <label for="selectAtributo">O que você quer mudar?</label>
+            <select id="selectAtributo" name="selectAtributo">
+                <option value="points">Pontos</option>
+                <option value="students">Número de Alunos</option>
+                <option value="averageGrade">Média de Nota</option>
+                <option value="attendance">Presença (%)</option>
+            </select>
+            <button type="submit">Finalizar</button>
+        </form>
+    </div>
+    <script src="scripts.js"></script>
+    <script>
+        // Função para carregar dinamicamente os dados das salas
+        function loadDashboardData() {
+            const selectSala = document.getElementById('selectSala');
+            // Exemplo de opções de salas (pode ser ajustado conforme suas salas)
+            const salas = ['Sala 01', 'Sala 02', 'Sala 03', 'Sala 04', 'Sala 05', 'Sala 06', 'Sala 07'];
+
+            salas.forEach(sala => {
+                const option = document.createElement('option');
+                option.value = sala;
+                option.textContent = sala;
+                selectSala.appendChild(option);
+            });
+        }
+
+        // Carregar os dados ao carregar a página
+        window.onload = function() {
+            loadDashboardData();
+        };
+
+        // Manipular o formulário de atualização
+        const updateForm = document.getElementById('updateForm');
+        updateForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const selectSala = document.getElementById('selectSala').value;
+            const selectAtributo = document.getElementById('selectAtributo').value;
+            const newValue = prompt(`Digite o novo valor para ${selectAtributo} da ${selectSala}`);
+
+            // Armazenar temporariamente os dados da sala no localStorage
+            localStorage.setItem('salaData', JSON.stringify({
+                name: selectSala,
+                [selectAtributo]: newValue
+            }));
+
+            // Redirecionar de volta para index.html
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
