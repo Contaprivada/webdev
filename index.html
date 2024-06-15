@@ -89,39 +89,37 @@
         <a href="regras.html" class="rules-link">Regras da Tabela Escolar</a>
     </div>
     <script src="scripts.js"></script>
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const salaData = JSON.parse(localStorage.getItem('salaData'));
+            const salasData = JSON.parse(localStorage.getItem('salasData')) || [];
 
-            if (salaData) {
+            if (salasData.length > 0) {
                 const tabela = document.getElementById('schoolTable').getElementsByTagName('tbody')[0];
 
-                // Encontrar a linha correspondente à sala
-                const trs = tabela.getElementsByTagName('tr');
-                for (let i = 0; i < trs.length; i++) {
-                    const td = trs[i].getElementsByTagName('td')[1];
-                    if (td.textContent === salaData.name) {
-                        // Atualizar os dados modificados
-                        if (salaData.points !== undefined) {
-                            trs[i].getElementsByTagName('td')[2].textContent = salaData.points;
+                // Atualizar a tabela com os dados do localStorage
+                salasData.forEach(salaData => {
+                    const trs = tabela.getElementsByTagName('tr');
+                    for (let i = 0; i < trs.length; i++) {
+                        const td = trs[i].getElementsByTagName('td')[1];
+                        if (td.textContent === salaData.name) {
+                            if (salaData.points !== undefined) {
+                                trs[i].getElementsByTagName('td')[2].textContent = salaData.points;
+                            }
+                            if (salaData.students !== undefined) {
+                                trs[i].getElementsByTagName('td')[3].textContent = salaData.students;
+                            }
+                            if (salaData.averageGrade !== undefined) {
+                                trs[i].getElementsByTagName('td')[4].textContent = salaData.averageGrade;
+                            }
+                            if (salaData.attendance !== undefined) {
+                                trs[i].getElementsByTagName('td')[5].textContent = salaData.attendance;
+                            }
+                            break;
                         }
-                        if (salaData.students !== undefined) {
-                            trs[i].getElementsByTagName('td')[3].textContent = salaData.students;
-                        }
-                        if (salaData.averageGrade !== undefined) {
-                            trs[i].getElementsByTagName('td')[4].textContent = salaData.averageGrade;
-                        }
-                        if (salaData.attendance !== undefined) {
-                            trs[i].getElementsByTagName('td')[5].textContent = salaData.attendance;
-                        }
-                        break;
                     }
-                }
-
-                // Limpar o localStorage após a atualização
-                localStorage.removeItem('salaData');
+                });
             }
         });
     </script>
 </body>
-</html>
+    </html>
