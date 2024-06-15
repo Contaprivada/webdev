@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -59,11 +60,27 @@
         button:hover {
             background-color: #45a049;
         }
+
+        .logout-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <h1>Dashboard - Tabela Escolar</h1>
+        <button class="logout-button" onclick="logout()">Logout</button>
         <form id="updateForm">
             <label for="selectSala">Escolha a Sala:</label>
             <select id="selectSala" name="selectSala">
@@ -82,11 +99,17 @@
     <script>
         // Verificação de autenticação
         document.addEventListener('DOMContentLoaded', function() {
-            const authToken = localStorage.getItem('authToken');
-            if (!authToken) {
+            const loggedIn = sessionStorage.getItem('loggedIn');
+            if (!loggedIn) {
                 window.location.href = 'login.html'; // Redirecionar para o login se não estiver autenticado
             }
         });
+
+        // Função de logout
+        function logout() {
+            sessionStorage.removeItem('loggedIn');
+            window.location.href = 'login.html';
+        }
 
         // Função para carregar dinamicamente os dados das salas
         function loadDashboardData() {
@@ -123,7 +146,7 @@
 
             // Redirecionar de volta para index.html
             window.location.href = 'index.html';
-        });
+        };
     </script>
 </body>
-</html>
+    </html>
